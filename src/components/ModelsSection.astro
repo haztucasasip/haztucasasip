@@ -1,0 +1,52 @@
+---
+import ModelCard from "./ModelCard.astro";
+
+const models = [
+  {
+    image: "/public/model1.png",
+    name: "Modelo 60",
+    meters: 60,
+    bedrooms: 2,
+    bathrooms: 1,
+    price: "$28.990.000",
+  },
+  {
+    image: "/public/model2.png",
+    name: "Modelo 72",
+    meters: 72,
+    bedrooms: 3,
+    bathrooms: 2,
+    price: "$34.990.000",
+  },
+  {
+    image: "/public/model3.png",
+    name: "Modelo 90",
+    meters: 90,
+    bedrooms: 3,
+    bathrooms: 2,
+    price: "$42.990.000",
+  },
+];
+---
+<section class="bg-[#F5F5F2] py-20">
+  <div class="max-w-7xl mx-auto px-6">
+
+    <!-- Título -->
+    <div class="mb-12 text-center">
+      <h2 class="text-3xl font-bold text-[#0B0B0B] mb-2">
+        Nuestros Modelos
+      </h2>
+      <p class="text-gray-600">
+        Casas prefabricadas SIP diseñadas para tu comodidad
+      </p>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+      {models.map((model) => (
+        <ModelCard {...model} />
+      ))}
+    </div>
+
+  </div>
+</section>

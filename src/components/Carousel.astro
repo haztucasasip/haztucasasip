@@ -1,0 +1,77 @@
+---
+const slides = [
+  {
+    
+    image: "/public/carrusel.png",
+  },
+  {
+    title: "Construcción moderna",
+    text: "Diseños pensados para tu estilo de vida.",
+    image: "/public/slide2.jpg",
+  },
+  {
+    title: "Ahorra tiempo y dinero",
+    text: "Entrega rápida y costos controlados.",
+    image: "/public/slide3.jpg",
+  },
+];
+---
+<section class="relative w-full overflow-hidden">
+  <div
+    id="carousel"
+    class="flex transition-transform duration-700 ease-in-out"
+  >
+    {slides.map((slide) => (
+      <div
+        class="min-w-full h-[60vh] bg-cover bg-center flex items-center"
+        style={`background-image: url(${slide.image});`}
+      >
+        <div class="bg-black/60 w-full h-full flex items-center">
+          <div class="max-w-7xl mx-auto px-6 text-[#F5F5F2]">
+            <h2 class="text-4xl md:text-5xl font-bold mb-4">
+              {slide.title}
+            </h2>
+            <p class="max-w-xl text-lg mb-6">
+              {slide.text}
+            </p>
+
+          </div>
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- CONTROLES -->
+  <button
+    id="prev"
+    class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/60 text-[#F5F5F2]
+           w-10 h-10 flex items-center justify-center hover:bg-black transition"
+  >
+    ‹
+  </button>
+
+  <button
+    id="next"
+    class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/60 text-[#F5F5F2]
+           w-10 h-10 flex items-center justify-center hover:bg-black transition"
+  >
+    ›
+  </button>
+
+  <!-- SCRIPT -->
+  <script>
+    let index = 0;
+    const carousel = document.getElementById("carousel");
+    const slidesCount = carousel.children.length;
+
+    document.getElementById("next").addEventListener("click", () => {
+      index = (index + 1) % slidesCount;
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+    });
+
+    document.getElementById("prev").addEventListener("click", () => {
+      index = (index - 1 + slidesCount) % slidesCount;
+      carousel.style.transform = `translateX(-${index * 100}%)`;
+    });
+  </script>
+</section>
