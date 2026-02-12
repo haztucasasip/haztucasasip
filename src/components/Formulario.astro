@@ -1,0 +1,143 @@
+<section class="bg-[#F2F2EE] py-24">
+  <div class="max-w-5xl mx-auto px-6">
+
+    <!-- Título -->
+    <div class="text-center mb-14">
+      <h2 class="text-4xl font-extrabold text-[#0B0B0B] mb-4">
+        Solicita tu cotización
+      </h2>
+      <p class="text-gray-600 text-lg">
+        Cuéntanos qué necesitas y te contactamos a la brevedad.
+      </p>
+    </div>
+
+    <!-- Card -->
+    <div class="bg-white/90 backdrop-blur rounded-3xl shadow-2xl p-10 md:p-14">
+
+      <form class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- Nombre -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Nombre
+          </label>
+          <input
+            type="text"
+            placeholder="Tu nombre completo"
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4
+                   placeholder:text-gray-500
+                   focus:outline-none focus:border-[#3E4446]
+                   focus:ring-1 focus:ring-[#3E4446]
+                   transition text-gray-700
+"
+            required
+          />
+        </div>
+
+        <!-- Email -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Email
+          </label>
+          <input
+            type="email"
+            placeholder="correo@email.com"
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4
+                   placeholder:text-gray-500
+                   focus:outline-none focus:border-[#3E4446]
+                   focus:ring-1 focus:ring-[#3E4446]
+                   transition text-gray-700
+"
+            required
+          />
+        </div>
+
+        <!-- Teléfono -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Teléfono
+          </label>
+          <input
+            type="tel"
+            placeholder="+56 9 1234 5678"
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4
+                   placeholder:text-gray-500
+                   focus:outline-none focus:border-[#3E4446]
+                   focus:ring-1 focus:ring-[#3E4446]
+                   transition text-gray-700
+"
+          />
+        </div>
+
+        <!-- Tipo de consulta -->
+        <div>
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Tipo de consulta
+          </label>
+          <select
+            id="tipoConsulta"
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4
+                   text-gray-500
+                   focus:outline-none focus:border-[#3E4446]
+                   focus:ring-1 focus:ring-[#3E4446]
+                   transition"
+            required
+          >
+            <option value="" disabled selected hidden>
+              Selecciona una opción
+            </option>
+            <option value="cotizacion">Cotización</option>
+            <option value="visita">Visita a terreno</option>
+            <option value="dudas">Dudas generales</option>
+          </select>
+        </div>
+
+        <!-- Mensaje -->
+        <div class="md:col-span-2">
+          <label class="block text-sm font-semibold text-gray-700 mb-2">
+            Mensaje
+          </label>
+          <textarea
+            rows="4"
+            placeholder="Cuéntanos el modelo que te interesa, ciudad y cualquier detalle importante"
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4 resize-none
+                   placeholder:text-gray-500
+                   focus:outline-none focus:border-[#3E4446]
+                   focus:ring-1 focus:ring-[#3E4446]
+                   transition text-gray-700
+"
+          ></textarea>
+        </div>
+
+        <!-- Botón -->
+        <div class="md:col-span-2 flex flex-col items-center mt-6">
+          <button
+            type="submit"
+            class="bg-[#3E4446] text-white px-14 py-4 rounded-xl
+                   font-semibold tracking-wide
+                   hover:bg-[#2B2F30] hover:scale-[1.03]
+                   active:scale-[0.97]
+                   transition"
+          >
+            Enviar solicitud
+          </button>
+
+          <p class="text-sm text-gray-500 mt-4">
+            Respondemos en menos de 24 horas hábiles.
+          </p>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- Script para que el select cambie de color al elegir -->
+<script>
+  const select = document.getElementById('tipoConsulta');
+
+    select.addEventListener('change', () => {
+    select.classList.remove('text-gray-500');
+    select.classList.add('text-gray-700');
+  });
+</script>

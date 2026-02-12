@@ -1,15 +1,14 @@
 <section class="relative overflow-hidden">
 
   <!-- Fondo desenfocado -->
-  <div class="absolute inset-0 ">
+  <div class="absolute inset-0">
     <img
+      id="heroBg"
       src="/hero.png"
       alt=""
-      class="w-full h-full object-cover blur-2xl opacity-60 bg-black/35
-"
+      class="w-full h-full object-cover blur-2xl opacity-60 transition-opacity duration-1000"
     />
-    <!-- overlay MÁS SUAVE -->
-    <div class="absolute inset-0 "></div>
+    <div class="absolute inset-0 bg-black/35"></div>
   </div>
 
   <!-- Contenido -->
@@ -25,18 +24,17 @@
         Alta eficiencia térmica, construcción rápida y precios claros.
       </p>
 
-
       <div class="flex gap-4">
         <a
           href="#modelos"
-          class="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:bg-gray-200 transition animate-pulse"
+          class="bg-white text-black px-6 py-3 rounded-xl font-semibold hover:bg-gray-200 transition"
         >
           Ver modelos
         </a>
 
         <a
           href="#contacto"
-          class="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-black transition "
+          class="border border-white px-6 py-3 rounded-xl hover:bg-white hover:text-black transition"
         >
           Cotizar
         </a>
@@ -46,11 +44,43 @@
     <!-- Imagen principal -->
     <div>
       <img
+        id="heroMain"
         src="/hero.png"
         alt="Casa prefabricada moderna"
-        class="rounded-2xl shadow-2xl"
+        class="rounded-2xl shadow-2xl transition-opacity duration-1000"
       />
     </div>
 
   </div>
 </section>
+
+<script>
+  const images = [
+    "/hero.png",
+    "/carrusel1.png",
+    "/caru2.jpg"
+  ];
+
+  let index = 0;
+
+  const heroMain = document.getElementById("heroMain");
+  const heroBg = document.getElementById("heroBg");
+
+  setInterval(() => {
+    // Fade out
+    heroMain.classList.add("opacity-0");
+    heroBg.classList.add("opacity-0");
+
+    setTimeout(() => {
+      index = (index + 1) % images.length;
+
+      heroMain.src = images[index];
+      heroBg.src = images[index];
+
+      // Fade in
+      heroMain.classList.remove("opacity-0");
+      heroBg.classList.remove("opacity-0");
+    }, 500);
+
+  }, 5000);
+</script>
