@@ -1,32 +1,6 @@
 ---
 import ModelCard from "./ModelCard.astro";
-
-const models = [
-  {
-    image: "/alpina/Alpina.png",
-    name: "Vivienda Alpina",
-    meters: 50,
-    bedrooms: 2,
-    bathrooms: 1,
-    price: "$28.990.000",
-  },
-  {
-    image: "/medi50/Medi.png",
-    name: "Vivienda Mediterranea",
-    meters: 50,
-    bedrooms: 2,
-    bathrooms: 1,
-    price: "$34.990.000",
-  },
-  {
-    image: "/medi80/vista2.png",
-    name: "Mediterranea Modelo 80m²",
-    meters: 80,
-    bedrooms: 3,
-    bathrooms: 2,
-    price: "$42.990.000",
-  },
-];
+import { models } from "../data/models";
 ---
 <section class="bg-[#F5F5F2] py-20">
   <div class="max-w-7xl mx-auto px-6">

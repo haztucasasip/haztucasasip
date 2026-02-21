@@ -1,0 +1,162 @@
+---
+import Layout from "../../layouts/BaseLayout.astro";
+import { models } from "../../data/models";
+
+export async function getStaticPaths() {
+  return models.map((model) => ({
+    params: { slug: model.slug },
+    props: model
+  }));
+}
+
+const {
+  name,
+  meters,
+  bedrooms,
+  bathrooms,
+  price,
+  heroImage,
+  gallery,
+  description,
+  specifications
+} = Astro.props;
+---
+
+
+<Layout>
+  <Fragment slot="title">{name} | HazTuCasa</Fragment>
+
+  <section class="max-w-7xl mx-auto px-6 py-12">
+
+    <!-- Header -->
+    <div class="flex justify-between items-start mb-8">
+      <h1 class="text-3xl font-semibold text-[#222222]">
+        {name}
+      </h1>
+
+      <div class="text-right">
+        <p class="text-2xl font-bold text-[#222222]">
+          Kit Inicial SIP {price}
+        </p>
+      </div>
+    </div>
+
+    <!-- Grid principal -->
+    <div class="grid lg:grid-cols-3 gap-6 mb-16">
+
+      <!-- Imagen grande izquierda -->
+      <div class="lg:col-span-2">
+        <img
+          src={gallery?.[0] || heroImage}
+          alt={name}
+          class="w-full h-full object-cover rounded-xl shadow-lg"
+        />
+      </div>
+
+      <!-- Columna derecha -->
+      <div class="flex flex-col gap-6">
+
+        {gallery?.[1] && (
+          <img
+            src={gallery[1]}
+            alt="Plano"
+            class="rounded-xl shadow-md"
+          />
+        )}
+
+        {gallery?.[2] && (
+          <img
+            src={gallery[2]}
+            alt="Vista secundaria"
+            class="rounded-xl shadow-md"
+          />
+        )}
+
+      </div>
+    </div>
+    <!-- Barra de características -->
+    <div class="bg-[#ECECEC] rounded-2xl border border-gray-300 shadow-sm py-4 mb-10">
+
+      <div class="grid grid-cols-3 text-center divide-x divide-gray-300">
+
+        <!-- Dormitorios -->
+        <div class="flex flex-col items-center justify-center">
+          <img src="/icons/cama.png" class="h-6 mb-3 opacity-80" />
+          <span class="text-xl font-semibold">{bedrooms}</span>
+          <span class="text-sm text-gray-600">Dormitorios</span>
+        </div>
+
+        <!-- Baños -->
+        <div class="flex flex-col items-center justify-center">
+          <img src="/icons/baño.png" class="h-6 mb-3 opacity-80" />
+          <span class="text-xl font-semibold">{bathrooms}</span>
+          <span class="text-sm text-gray-600">Baños</span>
+        </div>
+
+        <!-- Metros -->
+        <div class="flex flex-col items-center justify-center">
+          <img src="/icons/regla.png" class="h-6 mb-3 opacity-80" />
+          <span class="text-xl font-semibold">{meters}</span>
+          <span class="text-sm text-gray-600">M2</span>
+        </div>
+
+    </div>
+
+  </div>
+
+  </section>
+
+  <!-- Descripción -->
+  <section class="bg-[#EFEFEF] py-16">
+
+    <div class="max-w-4xl mx-auto px-6">
+
+      <h2 class="text-sm uppercase tracking-wider text-gray-500 mb-4">
+        Descripción
+      </h2>
+
+      <hr class="mb-8">
+
+      <h3 class="text-3xl font-semibold mb-4">
+        {name}
+      </h3>
+
+      <p class="text-gray-700 leading-relaxed mb-6 whitespace-pre-line font-bold">
+        Te presentamos nuestro nuevo diseño, el modelo {name}. 
+      </p>
+       <p class="text-gray-700 leading-relaxed mb-6  font-bold">
+        {description}
+      </p>
+      <div class="max-w-4xl mx-auto px-6">
+
+    <h3 class="text-lg font-semibold mb-6">
+      Incluye:
+    </h3>
+
+    <ul class="list-disc list-inside space-y-3 text-gray-700 leading-relaxed">
+
+      {specifications.map((item) => (
+        <li>{item}</li>
+      ))}
+
+    </ul>
+
+  </div>
+
+      {gallery?.[1] && (
+        <div class="flex justify-center my-10">
+          <img
+            src={gallery[3]}
+            class="w-full max-w-3xl rounded-lg shadow"
+          />
+        </div>
+      )}
+
+    </div>
+
+  </section>
+
+
+
+
+</Layout>

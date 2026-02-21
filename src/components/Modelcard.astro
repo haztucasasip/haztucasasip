@@ -1,11 +1,12 @@
 ---
 const {
-  image,
+  heroImage,
   name,
   meters,
   bedrooms,
   bathrooms,
   price,
+  slug,
 } = Astro.props;
 ---
 <div
@@ -16,7 +17,7 @@ const {
 
   <!-- Imagen -->
   <img
-    src={image}
+    src={heroImage}
     alt={name}
     class="w-full h-80 object-cover"
   />
@@ -49,7 +50,7 @@ const {
       </span>
 
       <a
-        href="/cotizacion"
+        href={`/modelos/${slug}`}
         class="text-sm uppercase tracking-wide border border-[#0B0B0B]
                px-4 py-2 hover:bg-[#0B0B0B] hover:text-white transition"
       >
