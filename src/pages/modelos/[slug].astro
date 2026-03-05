@@ -1,5 +1,5 @@
 ---
-import Layout from "../../layouts/BaseLayout.astro";
+import BaseLayout from "../../layouts/BaseLayout.astro";
 import { models } from "../../data/models";
 
 export async function getStaticPaths() {
@@ -23,7 +23,7 @@ const {
 ---
 
 
-<Layout>
+<BaseLayout>
   <Fragment slot="title">{name} | HazTuCasa</Fragment>
 
   <section class="max-w-7xl mx-auto px-6 py-12">
@@ -159,4 +159,4 @@ const {
 
 
 
-</Layout>
+</BaseLayout>

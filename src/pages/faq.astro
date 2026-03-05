@@ -1,0 +1,93 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+
+const faqs = [
+  {
+    question: "¿Qué es un panel SIP?",
+    answer: "Los paneles SIP (Structural Insulated Panels) son paneles estructurales compuestos por dos placas y un núcleo aislante. Permiten construir casas más rápidas, resistentes y con excelente eficiencia térmica."
+  },
+  {
+    question: "¿Cuánto demora la construcción de una casa?",
+    answer: "Una casa en panel SIP puede construirse en pocas semanas dependiendo del modelo y las terminaciones."
+  },
+  {
+    question: "¿Las casas SIP aíslan bien el frío?",
+    answer: "Sí. Los paneles SIP tienen alta eficiencia térmica, lo que permite mantener temperaturas interiores más estables y reducir el gasto en calefacción."
+  },
+  {
+    question: "¿Se pueden modificar los modelos?",
+    answer: "Sí. Nuestros modelos pueden adaptarse según las necesidades del cliente, modificando distribución o tamaño."
+  },
+  {
+    question: "¿El precio incluye instalación?",
+    answer: "El precio base corresponde al kit estructural. La instalación puede incluirse dependiendo del proyecto y ubicación."
+  }
+];
+---
+
+<BaseLayout>
+
+<section class="bg-[#F5F5F2] py-24">
+
+  <div class="max-w-4xl mx-auto px-6">
+
+    <!-- titulo -->
+    <div class="text-center mb-16">
+      <h1 class="text-4xl font-bold text-[#0B0B0B] mb-4">
+        Preguntas frecuentes
+      </h1>
+
+      <p class="text-gray-600">
+        Resolvemos las dudas más comunes sobre nuestras casas en panel SIP.
+      </p>
+    </div>
+
+    <!-- acordeon -->
+    <div class="space-y-4">
+
+      {faqs.map((faq) => (
+        <details class="bg-white p-6 rounded-xl shadow-sm cursor-pointer group">
+
+          <summary class="font-semibold text-lg flex justify-between items-center list-none">
+            {faq.question}
+
+            <span class="group-open:rotate-180 transition">
+              ▼
+            </span>
+          </summary>
+
+          <p class="mt-4 text-gray-600">
+            {faq.answer}
+          </p>
+
+        </details>
+      ))}
+
+    </div>
+
+    <!-- contacto -->
+    <div class="text-center mt-16">
+
+      <h3 class="text-2xl font-semibold mb-4">
+        ¿Tienes otra duda?
+      </h3>
+
+      <p class="text-gray-600 mb-6">
+        Escríbenos y te ayudaremos a resolver cualquier consulta.
+      </p>
+
+      <a
+        href="/contacto"
+        class="bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition"
+      >
+        Contactar
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+
+</BaseLayout>

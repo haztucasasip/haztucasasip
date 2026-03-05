@@ -133,7 +133,52 @@ export const models = [
     "Incluye planos técnicos + planos de armado"
   ],
 
-    }
+  },
+
+   {
+    slug: "mediterranea100",
+    name: "Vivienda Mediterranea 100m²",
+    price: "$10.000.000",
+
+    meters: 100,
+    terrace: 40,
+    bedrooms: 3,
+    bathrooms: 2,
+
+    heroImage: "/medi100/FachadaPrincipal.png",
+
+    gallery: [
+        "/medi100/FachadaPrincipal.png",     // imagen grande
+        "/medi100/interior1.png",    // imagen derecha arriba
+        "/medi100/interior2.png",    // imagen derecha abajo
+        "/medi100/Exterior3.png"    // imagen derecha abajo
+    ],
+
+    description: `
+       
+        Una Vivienda Alpina prefabricada con paneles SIP, pensada para su facilidad y velocidad de montaje...
+        `,
+
+    specifications: [
+      "Muros exteriores de 120 mm Panel SIP =38",
+      "Muros interiores de 90 mm Panel SIP =24 ",
+      "Cercha de techo de Madera o Acero galvanizado",
+      "Solera Superior e Inferior Perfil de madera 2x4 = 55",
+      "Montantes Perfiles de Madera 3x4= 58",
+      "Cielo con estructura de madera grilla regular",
+      "Techo de Zinc acanalado o Corte en V",
+      "Hojalatería completa de techumbre",
+      "Puerta principal de madera de Pino sólido con vidrio",
+      "Puertas interiores de madera de Pino",
+      "Ventanas y Ventanales de aluminio o Termopanel",
+      "Revestimiento interior zonas secas de cielo y muros en planchas de volcanita 10 mm",
+      "Revestimiento interior de zona húmeda con plancha super board 6 mm",
+      "Revestimiento exterior Estuco que simula una construcción de Hormigón",
+      "Muros con terminación exterior/interior de Piedra",
+      "Costaneras de cielo de madera de Pino impregnado",
+      "Incluye planos técnicos + Planos de armado"
+    ]
+  }
 
 
 ];

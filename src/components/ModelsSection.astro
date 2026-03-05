@@ -2,7 +2,7 @@
 import ModelCard from "./ModelCard.astro";
 import { models } from "../data/models";
 ---
-<section class="bg-[#F5F5F2] py-20">
+<section id="modelos" class="bg-[#F5F5F2] py-20">
   <div class="max-w-7xl mx-auto px-6">
 
     <!-- Título -->
@@ -16,11 +16,40 @@ import { models } from "../data/models";
     </div>
 
     <!-- Grid -->
-    <div class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
-      {models.map((model) => (
+    <div id="models-container" class="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+
+      {models.slice(0,3).map((model) => (
+        <ModelCard {...model} />
+      ))}
+
+    <div id="extra-models" class="hidden contents">
+      {models.slice(3).map((model) => (
         <ModelCard {...model} />
       ))}
     </div>
 
+</div>
+
+</div>
+
+    <div class="text-center mt-10">
+      <button
+        id="loadMore"
+        class="bg-[#f6ae1f] text-white px-8 py-3 rounded-lg font-semibold hover:bg-gray-800 transition"
+      >
+        Ver más modelos
+      </button>
+    </div>
+
   </div>
 </section>
+
+<script>
+  const button = document.getElementById("loadMore");
+  const extra = document.getElementById("extra-models");
+
+  button?.addEventListener("click", () => {
+    extra.classList.remove("hidden");
+    button.style.display = "none";
+  });
+</script>
