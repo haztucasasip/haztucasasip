@@ -14,24 +14,23 @@
     <!-- Card -->
     <div class="bg-white/90 backdrop-blur rounded-3xl shadow-2xl p-10 md:p-14">
 
-      <form class="grid grid-cols-1 md:grid-cols-2 gap-8">
+      <!-- FORM -->
+      <form 
+        name="cotizacion"
+        method="POST"
+        data-netlify="true"
+        class="grid grid-cols-1 md:grid-cols-2 gap-8"
+      >
+        <input type="hidden" name="form-name" value="cotizacion" />
 
         <!-- Nombre -->
         <div>
           <label class="block text-sm font-semibold text-gray-700 mb-2">
             Nombre
           </label>
-          <input
-            type="text"
+          <input type="text" name="nombre" required 
             placeholder="Tu nombre completo"
-            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4
-                   placeholder:text-gray-500
-                   focus:outline-none focus:border-[#3E4446]
-                   focus:ring-1 focus:ring-[#3E4446]
-                   transition text-gray-700
-"
-            required
-          />
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4" />
         </div>
 
         <!-- Email -->
@@ -39,17 +38,9 @@
           <label class="block text-sm font-semibold text-gray-700 mb-2">
             Email
           </label>
-          <input
-            type="email"
+          <input type="email" name="email" required
             placeholder="correo@email.com"
-            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4
-                   placeholder:text-gray-500
-                   focus:outline-none focus:border-[#3E4446]
-                   focus:ring-1 focus:ring-[#3E4446]
-                   transition text-gray-700
-"
-            required
-          />
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4" />
         </div>
 
         <!-- Teléfono -->
@@ -57,16 +48,9 @@
           <label class="block text-sm font-semibold text-gray-700 mb-2">
             Teléfono
           </label>
-          <input
-            type="tel"
+          <input type="tel" name="telefono"
             placeholder="+56 9 1234 5678"
-            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4
-                   placeholder:text-gray-500
-                   focus:outline-none focus:border-[#3E4446]
-                   focus:ring-1 focus:ring-[#3E4446]
-                   transition text-gray-700
-"
-          />
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4" />
         </div>
 
         <!-- Tipo de consulta -->
@@ -74,21 +58,14 @@
           <label class="block text-sm font-semibold text-gray-700 mb-2">
             Tipo de consulta
           </label>
-          <select
-            id="tipoConsulta"
-            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4
-                   text-gray-500
-                   focus:outline-none focus:border-[#3E4446]
-                   focus:ring-1 focus:ring-[#3E4446]
-                   transition"
-            required
-          >
+          <select name="tipoConsulta" required
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4">
             <option value="" disabled selected hidden>
               Selecciona una opción
             </option>
-            <option value="cotizacion">Cotización</option>
-            <option value="visita">Visita a terreno</option>
-            <option value="dudas">Dudas generales</option>
+            <option value="Cotización">Cotización</option>
+            <option value="Visita a terreno">Visita a terreno</option>
+            <option value="Dudas generales">Dudas generales</option>
           </select>
         </div>
 
@@ -97,28 +74,15 @@
           <label class="block text-sm font-semibold text-gray-700 mb-2">
             Mensaje
           </label>
-          <textarea
-            rows="4"
-            placeholder="Cuéntanos el modelo que te interesa, ciudad y cualquier detalle importante"
-            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4 resize-none
-                   placeholder:text-gray-500
-                   focus:outline-none focus:border-[#3E4446]
-                   focus:ring-1 focus:ring-[#3E4446]
-                   transition text-gray-700
-"
-          ></textarea>
+          <textarea name="mensaje" rows="4" required
+            class="w-full bg-[#F7F7F5] border border-gray-300 rounded-xl px-5 py-4 resize-none">
+          </textarea>
         </div>
 
         <!-- Botón -->
         <div class="md:col-span-2 flex flex-col items-center mt-6">
-          <button
-            type="submit"
-            class="bg-[#3E4446] text-white px-14 py-4 rounded-xl
-                   font-semibold tracking-wide
-                   hover:bg-[#2B2F30] hover:scale-[1.03]
-                   active:scale-[0.97]
-                   transition"
-          >
+          <button type="submit"
+            class="bg-[#3E4446] text-white px-14 py-4 rounded-xl font-semibold">
             Enviar solicitud
           </button>
 
@@ -131,13 +95,3 @@
     </div>
   </div>
 </section>
-
-<!-- Script para que el select cambie de color al elegir -->
-<script>
-  const select = document.getElementById('tipoConsulta');
-
-    select.addEventListener('change', () => {
-    select.classList.remove('text-gray-500');
-    select.classList.add('text-gray-700');
-  });
-</script>
