@@ -1,85 +1,175 @@
 ---
+const features = [
+  {
+    title: "Aislación Térmica Superior",
+    desc: "Mantén tu hogar cálido en invierno y fresco en verano, reduciendo costos energéticos hasta un 60%.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 9a4 4 0 0 0-2 7.5"/><path d="M12 3v2"/><path d="M6.6 18.4A9 9 0 0 0 20 9"/><path d="M20 9v2"/><path d="M17.3 15.7A4 4 0 0 0 12 9"/></svg>`
+  },
+  {
+    title: "Estructura Monolítica",
+    desc: "Panel autoportante que actúa como muro, aislación y estructura al mismo tiempo.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>`
+  },
+  {
+    title: "Montaje Rápido",
+    desc: "Construcción 5x más rápida que la tradicional, lista en semanas no meses.",
+    icon: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`
+  }
+];
+
+const kitItems = [
+  "Muros perimetrales, interiores, cielo y piso (Kit Full) en Panel SIP",
+  "Montantes y soleras en madera seca cepillada + fijaciones + adhesivos",
+  "Corte y dimensionado listo para instalar",
+  "Documentación completa: planos generales, montaje e instructivo SIP",
+  "Capacitación técnica y asesoría especializada sobre el Sistema"
+];
 ---
 
-<section id="panelsip" class="w-full bg-black text-white py-24">
-  <div class="max-w-7xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-start">
+<section id="panelsip" class="relative bg-stone-950 py-24 lg:py-32 overflow-hidden">
+  <!-- Fondo con gradiente sutil -->
+  <div class="absolute inset-0 bg-gradient-to-br from-stone-950 via-stone-900 to-stone-950"></div>
+  
+  <!-- Líneas decorativas -->
+  <div class="absolute inset-0 opacity-5">
+    <div class="absolute top-0 left-1/4 w-px h-full bg-gradient-to-b from-transparent via-amber-500 to-transparent"></div>
+    <div class="absolute top-0 right-1/4 w-px h-full bg-gradient-to-b from-transparent via-amber-500 to-transparent"></div>
+  </div>
 
-    <!-- COLUMNA IZQUIERDA -->
-    <div class="space-y-20">
+  <div class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    
+    <!-- Header de sección -->
+    <div class="text-center mb-20">
+      <span class="inline-block px-4 py-1.5 mb-4 text-xs font-semibold tracking-wider text-amber-400 uppercase bg-amber-500/10 rounded-full border border-amber-500/20">
+        Tecnología Constructiva
+      </span>
+      <h2 class="text-4xl md:text-5xl lg:text-6xl font-bold text-white tracking-tight">
+        ¿Qué es el <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Panel SIP</span>?
+      </h2>
+    </div>
 
-      <!-- Qué es el Panel SIP -->
-      <div>
-        <h2 class="text-4xl font-bold mb-6">
-          ¿Qué es el Panel SIP?
-        </h2>
+    <div class="grid lg:grid-cols-2 gap-16 lg:gap-24 items-start">
+      
+      <!-- COLUMNA IZQUIERDA: Contenido -->
+      <div class="space-y-16">
+        
+        <!-- Definición con destacado visual -->
+        <div class="relative p-8 rounded-3xl bg-gradient-to-br from-white/5 to-white/[0.02] border border-white/10 backdrop-blur-sm">
+          <div class="absolute -top-4 left-8 px-4 py-1 bg-amber-500 text-stone-950 text-sm font-bold rounded-full">
+            SISTEMA CONSTRUCTIVO
+          </div>
+          
+          <p class="text-lg text-stone-300 leading-relaxed mt-4">
+            <span class="text-2xl font-bold text-white block mb-2">Panel Estructural Isotérmico</span>
+            Consiste en dos placas de <span class="text-amber-400 font-semibold">OSB APA</span> con un alma de <span class="text-amber-400 font-semibold">EPS</span> (poliestireno expandido). Un sistema todo-en-uno que combina estructura, aislación y acabado en un solo elemento.
+          </p>
 
-        <p class="text-gray-300 leading-relaxed max-w-xl">
-          En español, <span class="font-semibold text-white">PANEL ESTRUCTURAL ISOTÉRMICO</span> 
-          consiste en dos placas de OSB APA + un alma de EPS. 
-          Se caracteriza por su potente aislación térmica, 
-          potente estructura y rápido armado.
-        </p>
+          <!-- Features grid -->
+          <div class="grid sm:grid-cols-3 gap-4 mt-8 pt-8 border-t border-white/10">
+            {features.map(feature => (
+              <div class="text-center group">
+                <div class="inline-flex items-center justify-center w-12 h-12 mb-3 rounded-xl bg-amber-500/10 text-amber-400 group-hover:bg-amber-500 group-hover:text-stone-950 transition-all duration-300">
+                  <Fragment set:html={feature.icon} />
+                </div>
+                <h4 class="text-white font-semibold text-sm mb-1">{feature.title}</h4>
+                <p class="text-stone-400 text-xs leading-relaxed">{feature.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Kit de construcción -->
+        <div>
+          <div class="flex items-center gap-4 mb-8">
+            <div class="w-12 h-12 rounded-2xl bg-gradient-to-br from-amber-500 to-amber-600 flex items-center justify-center shadow-lg shadow-amber-500/25">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-stone-950"><path d="m7.5 4.27 9 5.15"/><path d="M21 8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16Z"/><path d="m3.3 7 8.7 5 8.7-5"/><path d="M12 22V12"/></svg>
+            </div>
+            <div>
+              <h3 class="text-2xl md:text-3xl font-bold text-white">¿Qué incluye el Kit?</h3>
+              <p class="text-stone-400 text-sm">Todo lo necesario para tu obra gruesa</p>
+            </div>
+          </div>
+
+          <div class="space-y-4">
+            {kitItems.map((item, index) => (
+              <div class="flex items-start gap-4 p-4 rounded-xl bg-white/5 border border-white/5 hover:bg-white/10 hover:border-amber-500/30 transition-all duration-300 group">
+                <div class="flex-shrink-0 w-8 h-8 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-sm group-hover:bg-amber-500 group-hover:text-stone-950 transition-colors">
+                  {index + 1}
+                </div>
+                <p class="text-stone-300 text-sm leading-relaxed group-hover:text-white transition-colors">
+                  {item}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <!-- CTA -->
+          <a 
+            href="#contacto" 
+            class="inline-flex items-center gap-2 mt-8 text-amber-400 font-semibold hover:text-amber-300 transition-colors group"
+          >
+            Solicitar cotización de Kit
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+
       </div>
 
-      <!-- Qué incluye el Kit -->
-      <div>
-        <h2 class="text-4xl font-bold mb-6">
-          ¿Qué incluye el Kit?
-        </h2>
+      <!-- COLUMNA DERECHA: Imágenes con efectos -->
+      <div class="relative lg:sticky lg:top-24 space-y-8">
+        
+        <!-- Imagen Panel SIP -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-amber-500 to-amber-600 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+          <div class="relative overflow-hidden rounded-3xl bg-stone-900 border border-white/10">
+            <img 
+              src="/panelsip2.png"
+              alt="Estructura Panel SIP - Sección transversal mostrando OSB y EPS"
+              class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
+            />
+            <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-stone-950 to-transparent">
+              <span class="inline-block px-3 py-1 bg-amber-500/20 text-amber-400 text-xs font-semibold rounded-full border border-amber-500/30">
+                Sección Transversal
+              </span>
+            </div>
+          </div>
+        </div>
 
-        <p class="text-gray-300 mb-8 max-w-xl">
-          En Tu Haz tu casa te entregamos todo lo necesario 
-          para montar la obra gruesa de tu hogar en Panel SIP.
-        </p>
+        <!-- Imagen Kit -->
+        <div class="group relative">
+          <div class="absolute -inset-1 bg-gradient-to-r from-stone-600 to-stone-500 rounded-3xl blur opacity-25 group-hover:opacity-50 transition duration-500"></div>
+          <div class="relative overflow-hidden rounded-3xl bg-stone-900 border border-white/10">
+            <img 
+              src="/panelsip.png"
+              alt="Kit de construcción SIP completo"
+              class="w-full h-auto object-cover transform group-hover:scale-105 transition-transform duration-700"
+            />
+            <div class="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-stone-950 to-transparent">
+              <span class="inline-block px-3 py-1 bg-white/10 text-white text-xs font-semibold rounded-full border border-white/20">
+                Kit Completo
+              </span>
+            </div>
+          </div>
+        </div>
 
-        <ul class="space-y-4 text-gray-200">
-          <li class="flex items-start gap-3">
-            <span class="text-white text-lg">✔</span>
-            Muros perimetrales, interiores, cielo y piso (para Kit Full) en Panel SIP
-          </li>
+        <!-- Stats flotante -->
+        <div class="grid grid-cols-3 gap-4 p-6 rounded-2xl bg-white/5 border border-white/10 backdrop-blur-sm">
+          <div class="text-center">
+            <div class="text-2xl font-bold text-amber-400">60%</div>
+            <div class="text-xs text-stone-400 mt-1">Ahorro energético</div>
+          </div>
+          <div class="text-center border-x border-white/10">
+            <div class="text-2xl font-bold text-amber-400">5x</div>
+            <div class="text-xs text-stone-400 mt-1">Más rápido</div>
+          </div>
+          <div class="text-center">
+            <div class="text-2xl font-bold text-amber-400">50+</div>
+            <div class="text-xs text-stone-400 mt-1">Años de vida útil</div>
+          </div>
+        </div>
 
-          <li class="flex items-start gap-3">
-            <span class="text-white text-lg">✔</span>
-            Montantes y soleras en madera seca cepillada + fijaciones + adhesivos expansivos
-          </li>
-
-          <li class="flex items-start gap-3">
-            <span class="text-white text-lg">✔</span>
-            Corte y dimensionado listo para instalar
-          </li>
-
-          <li class="flex items-start gap-3">
-            <span class="text-white text-lg">✔</span>
-            Documentación (planos generales, planos de montaje, instructivo SIP)
-          </li>
-
-          <li class="flex items-start gap-3">
-            <span class="text-white text-lg">✔</span>
-            Capacitación técnica y asesoría sobre el Sistema SIP
-          </li>
-        </ul>
       </div>
 
     </div>
-
-    <!-- COLUMNA DERECHA -->
-    <div class="flex flex-col items-end gap-24">
-
-      <!-- Imagen Panel -->
-      <img 
-        src="/panelsip2.png"
-        alt="Panel SIP"
-        class="w-72 object-contain"
-      />
-
-      <!-- Imagen Kit -->
-      <img 
-        src="/panelsip.png"
-        alt="Kit SIP"
-        class="w-72 object-contain"
-      />
-
-    </div>
-
   </div>
 </section>

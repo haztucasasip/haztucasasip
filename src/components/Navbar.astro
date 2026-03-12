@@ -1,54 +1,218 @@
-<header class="w-full bg-[#0B0B0B] border-b border-white/10">
-  <nav class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+---
+const navLinks = [
+  { label: "Modelos", href: "/#modelos" },
+  { label: "Tecnología SIP", href: "/#panelsip" },
+  { label: "Proceso", href: "/#proceso" },
+  { label: "Preguntas Frecuentes", href: "/faq" }
+];
 
-     <!-- LOGO -->
-    <a href="/" class="flex items-center gap-3">
-      <img
-        src="/logo1.png"
-        alt="Haz Tu Casa"
-        class="h-50 w-auto"
-      />
-    </a>
+const currentPath = Astro.url.pathname;
+---
 
-    <!-- MENÚ DESKTOP -->
-    <ul class="hidden lg:flex items-center gap-8 text-sm uppercase tracking-wide text-[#F5F5F2]">
-      <li>
-        <a href="/#modelos" class="hover:text-[#F4C430] transition">
-          Modelos
+<header 
+  id="navbar"
+  class="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
+>
+  <!-- Fondo que cambia en scroll -->
+  <div 
+    id="navbar-bg"
+    class="absolute inset-0 bg-stone-950/95 backdrop-blur-xl border-b border-white/5 transition-all duration-500"
+  ></div>
+
+  <nav class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-20 lg:h-24">
+      
+      <!-- LOGO -->
+      <a href="/" class="relative z-10 flex items-center gap-3 group">
+        <div class="relative overflow-hidden rounded-lg">
+          <img
+            src="/logo1.png"
+            alt="HazTuCasa"
+            class="h-50 lg:h-50 w-auto object-contain transition-transform duration-300 group-hover:scale-105"
+          />
+        </div>
+      </a>
+
+      <!-- MENÚ DESKTOP -->
+      <div class="hidden lg:flex items-center gap-1">
+        {navLinks.map((link) => {
+          const isActive = currentPath === link.href || currentPath.startsWith(link.href + '/');
+          return (
+            <a
+              href={link.href}
+              class:list={[
+                "relative px-4 py-2 text-sm font-medium transition-all duration-300 rounded-lg group",
+                isActive 
+                  ? "text-amber-400 bg-white/5" 
+                  : "text-stone-300 hover:text-white hover:bg-white/5"
+              ]}
+            >
+              {link.label}
+              <!-- Indicador de hover -->
+              <span class="absolute bottom-1 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-amber-500 rounded-full group-hover:w-4/5 transition-all duration-300"></span>
+            </a>
+          );
+        })}
+      </div>
+
+      <!-- CTAs Desktop -->
+      <div class="hidden lg:flex items-center gap-4">
+        <a
+          href="https://wa.me/56912345678"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center gap-2 text-stone-300 hover:text-white transition-colors text-sm font-medium"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span class="sr-only lg:not-sr-only">WhatsApp</span>
         </a>
-      </li>
-      <li>
-        <a href="/quienes-somos" class="hover:text-[#F4C430] transition">
-          Quiénes somos
+
+        <a
+          href="/#contacto"
+          class="group relative inline-flex items-center gap-2 bg-amber-500 text-stone-950 px-6 py-2.5 rounded-xl font-semibold text-sm hover:bg-amber-400 transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 hover:-translate-y-0.5"
+        >
+          Cotizar
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-0.5"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
         </a>
-      </li>
-      <li>
-        <a href="/#panelsip" class="hover:text-[#F4C430] transition">
-          ¿Qué es Panel SIP?
-        </a>
-      </li>
+      </div>
 
-      <li>
-        <a href="/faq" class="hover:text-[#F4C430] transition">
-          Preguntas frecuentes
-        </a>
-      </li>
-    </ul>
+      <!-- BOTÓN MOBILE -->
+      <button 
+        id="mobile-menu-btn"
+        class="lg:hidden relative z-10 w-10 h-10 flex items-center justify-center text-white rounded-lg hover:bg-white/10 transition-colors"
+        aria-label="Abrir menú"
+        aria-expanded="false"
+      >
+        <div class="relative w-6 h-5">
+          <span class="absolute left-0 top-0 w-full h-0.5 bg-current transform transition-all duration-300 origin-center" id="line-1"></span>
+          <span class="absolute left-0 top-1/2 -translate-y-1/2 w-full h-0.5 bg-current transform transition-all duration-300" id="line-2"></span>
+          <span class="absolute left-0 bottom-0 w-full h-0.5 bg-current transform transition-all duration-300 origin-center" id="line-3"></span>
+        </div>
+      </button>
 
-    <!-- CTA -->
-    <a
-      href="/cotizacion"
-      class="hidden lg:inline-flex items-center justify-center px-5 py-2 text-sm uppercase tracking-wide
-             border border-[#F4C430] text-[#F4C430]
-             hover:bg-[#F4C430] hover:text-[#0B0B0B] transition"
-    >
-      Solicitar cotización
-    </a>
-
-    <!-- BOTÓN MOBILE (placeholder) -->
-    <button class="lg:hidden text-[#F5F5F2] text-2xl">
-      ☰
-    </button>
-
+    </div>
   </nav>
+
+  <!-- MENÚ MOBILE -->
+  <div 
+    id="mobile-menu"
+    class="lg:hidden fixed inset-0 top-20 bg-stone-950/98 backdrop-blur-2xl transform translate-x-full transition-transform duration-500 ease-in-out"
+  >
+    <div class="flex flex-col h-full px-6 py-8">
+      
+      <!-- Links mobile -->
+      <div class="flex-1 space-y-2">
+        {navLinks.map((link, index) => (
+          <a
+            href={link.href}
+            class="mobile-link block py-4 text-2xl font-bold text-white border-b border-white/10 hover:text-amber-400 hover:pl-4 transition-all duration-300 opacity-0 translate-x-4"
+            style={`transition-delay: ${index * 50}ms`}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <!-- CTAs mobile -->
+      <div class="space-y-4 pt-8 border-t border-white/10">
+        <a
+          href="https://wa.me/56912345678"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="flex items-center justify-center gap-2 w-full py-4 border border-white/20 rounded-xl text-white font-semibold hover:bg-white/5 transition-colors"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          Chatear por WhatsApp
+        </a>
+        
+        <a
+          href="/#contacto"
+          class="flex items-center justify-center gap-2 w-full py-4 bg-amber-500 text-stone-950 rounded-xl font-bold text-lg hover:bg-amber-400 transition-colors"
+        >
+          Solicitar cotización
+          <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+        </a>
+      </div>
+
+      <!-- Info contacto mobile -->
+      <div class="pt-8 text-center">
+        <p class="text-stone-500 text-sm">contacto@haztucasa.cl</p>
+      </div>
+
+    </div>
+  </div>
+
 </header>
+
+<!-- Spacer para compensar el header fixed -->
+<div class="h-20 lg:h-24"></div>
+
+<script>
+
+  // Mobile menu toggle
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const line1 = document.getElementById('line-1');
+  const line2 = document.getElementById('line-2');
+  const line3 = document.getElementById('line-3');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+  
+  let isOpen = false;
+
+  function toggleMenu() {
+    isOpen = !isOpen;
+    
+    // Toggle menu
+    if (isOpen) {
+      mobileMenu.classList.remove('translate-x-full');
+      mobileMenu.classList.add('translate-x-0');
+      
+      // Animate hamburger to X
+      line1.classList.add('rotate-45', 'top-1/2', '-translate-y-1/2');
+      line2.classList.add('opacity-0');
+      line3.classList.add('-rotate-45', 'bottom-1/2', 'translate-y-1/2');
+      
+      // Animate links
+      mobileLinks.forEach((link, i) => {
+        setTimeout(() => {
+          link.classList.remove('opacity-0', 'translate-x-4');
+          link.classList.add('opacity-100', 'translate-x-0');
+        }, i * 50);
+      });
+      
+      document.body.style.overflow = 'hidden';
+    } else {
+      mobileMenu.classList.add('translate-x-full');
+      mobileMenu.classList.remove('translate-x-0');
+      
+      // Reset hamburger
+      line1.classList.remove('rotate-45', 'top-1/2', '-translate-y-1/2');
+      line2.classList.remove('opacity-0');
+      line3.classList.remove('-rotate-45', 'bottom-1/2', 'translate-y-1/2');
+      
+      // Reset links
+      mobileLinks.forEach(link => {
+        link.classList.add('opacity-0', 'translate-x-4');
+        link.classList.remove('opacity-100', 'translate-x-0');
+      });
+      
+      document.body.style.overflow = '';
+    }
+    
+    menuBtn.setAttribute('aria-expanded', isOpen.toString());
+  }
+
+  menuBtn?.addEventListener('click', toggleMenu);
+
+  // Cerrar menú al hacer click en un link
+  mobileLinks.forEach(link => {
+    link.addEventListener('click', () => {
+      if (isOpen) toggleMenu();
+    });
+  });
+
+  // Cerrar con tecla Escape
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && isOpen) toggleMenu();
+  });
+</script>

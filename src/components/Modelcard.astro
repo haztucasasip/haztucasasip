@@ -8,54 +8,70 @@ const {
   price,
   slug,
 } = Astro.props;
----
-<div
-  class="bg-white rounded-xl overflow-hidden shadow-md
-         hover:shadow-2xl hover:-translate-y-1
-         transition-all duration-300"
->
 
-  <!-- Imagen -->
-  <img
-    src={heroImage}
-    alt={name}
-    class="w-full h-80 object-cover"
-  />
+// Iconos SVG inline para mejor rendimiento
+const RulerIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>`;
+
+const BedIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>`;
+
+const BathIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21h6"/><path d="M6 21h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2Z"/><path d="M12 12V3"/><path d="M8 3h8"/></svg>`;
+
+const ArrowIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="ml-1 transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>`;
+---
+
+<article class="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 ease-out hover:-translate-y-2 border border-stone-100">
+  
+  <!-- Badge de precio destacado -->
+  <div class="absolute top-4 right-4 z-10 bg-white/95 backdrop-blur-sm px-3 py-1.5 rounded-full shadow-lg border border-stone-100">
+    <span class="text-sm font-bold text-amber-600 tracking-tight">{price}</span>
+  </div>
+
+  <!-- Imagen con overlay gradiente en hover -->
+  <div class="relative aspect-[4/3] overflow-hidden bg-stone-100">
+    <img
+      src={heroImage}
+      alt={name}
+      class="w-full h-full object-cover transition-transform duration-700 ease-out group-hover:scale-110"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+  </div>
 
   <!-- Contenido -->
-  <div class="p-6 text-[#0B0B0B]">
-    <h3 class="text-xl font-bold mb-2">
-      {name}
-    </h3>
-
-    <ul class="text-sm space-y-2 mb-4 text-gray-700">
-        <li class="flex items-center gap-2">
-            <img src="/icons/regla.png" class="h-5 mb-1">
-            <span><strong>{meters} m²</strong></span>
-        </li>
-        <li class="flex items-center gap-2">
-          <img src="/icons/cama.png" class="h-6 mb-1">
-             <span>{bedrooms} Dormitorios</span>
-        </li>
-        <li class="flex items-center gap-2">
-          <img src="/icons/baño.png" class="h-5 mb-1">
-          <span>{bathrooms} Baños</span>
-        </li>
-    </ul>
-
-
-    <div class="flex items-center justify-between">
-      <span class="text-lg font-bold text-[#F4C430]">
-        {price}
-      </span>
-
-      <a
-        href={`/modelos/${slug}`}
-        class="text-sm uppercase tracking-wide border border-[#0B0B0B]
-               px-4 py-2 hover:bg-[#0B0B0B] hover:text-white transition"
-      >
-        Ver modelos
-      </a>
+  <div class="p-6 space-y-4">
+    <!-- Título -->
+    <div>
+      <h3 class="text-xl font-bold text-stone-900 leading-tight group-hover:text-amber-700 transition-colors duration-300">
+        {name}
+      </h3>
+      <div class="mt-2 h-0.5 w-12 bg-amber-500 rounded-full group-hover:w-20 transition-all duration-500"></div>
     </div>
+
+    <!-- Especificaciones con iconos SVG -->
+    <div class="flex flex-wrap gap-3 text-sm text-stone-600">
+      <div class="flex items-center gap-1.5 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-100">
+        <Fragment set:html={RulerIcon} />
+        <span class="font-semibold text-stone-800">{meters} m²</span>
+      </div>
+      
+      <div class="flex items-center gap-1.5 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-100">
+        <Fragment set:html={BedIcon} />
+        <span>{bedrooms} Dorm.</span>
+      </div>
+      
+      <div class="flex items-center gap-1.5 bg-stone-50 px-3 py-1.5 rounded-lg border border-stone-100">
+        <Fragment set:html={BathIcon} />
+        <span>{bathrooms} Baños</span>
+      </div>
+    </div>
+
+    <!-- CTA Mejorado -->
+    <a
+      href={`/modelos/${slug}`}
+      class="group/btn inline-flex items-center justify-center w-full mt-2 bg-stone-900 text-white px-6 py-3.5 rounded-xl font-medium text-sm uppercase tracking-wider hover:bg-amber-600 transition-all duration-300 shadow-lg shadow-stone-900/10 hover:shadow-amber-600/25 hover:scale-[1.02] active:scale-[0.98]"
+    >
+      Ver Detalles
+      <Fragment set:html={ArrowIcon} />
+    </a>
   </div>
-</div>
+</article>
