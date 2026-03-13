@@ -56,8 +56,8 @@ export const models = [
     heroImage: "/medi50/Medi.png",
 
     gallery: [
-        "/medi50/Medi.png",     // imagen grande
-        "/medi50/Medi2.png",    // imagen derecha arriba
+        "/medi50/Medi5.png",     // imagen grande
+        "/medi50/Medi4.png",    // imagen derecha arriba
         "/medi50/Medi3.png",    // imagen derecha abajo
         "/medi50/planta1.png"    // imagen derecha abajo
     ], // opcional si tienes plano

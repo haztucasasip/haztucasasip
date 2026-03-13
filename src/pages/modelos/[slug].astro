@@ -15,148 +15,319 @@ const {
   bedrooms,
   bathrooms,
   price,
+  terrace,
   heroImage,
   gallery,
   description,
   specifications
 } = Astro.props;
----
 
+// Iconos SVG
+const Icons = {
+  bed: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/></svg>`,
+  bath: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21h6"/><path d="M6 21h12a2 2 0 0 0 2-2v-7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2Z"/><path d="M12 12V3"/><path d="M8 3h8"/></svg>`,
+  ruler: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg>`,
+  terrace: `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l8-4 8 4v14"/><path d="M8 21v-5a2 2 0 0 1 4 0v5"/></svg>`,
+  check: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>`,
+  arrowLeft: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`,
+  whatsapp: `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>`
+};
+
+// Preparar imágenes para galería
+const allImages = [heroImage, ...(gallery || [])].filter(Boolean);
+const mainImage = allImages[0];
+const sideImages = allImages.slice(1, 3);
+const floorPlan = gallery?.[3];
+---
 
 <BaseLayout>
   <Fragment slot="title">{name} | HazTuCasa</Fragment>
+  <Fragment slot="description">Casa prefabricada {name} de {meters}m² con {bedrooms} dormitorios. Tecnología SIP de alta eficiencia energética.</Fragment>
 
-  <section class="max-w-7xl mx-auto px-6 py-12">
+  <!-- Breadcrumb y navegación -->
+  <div class="bg-stone-50 border-b border-stone-200">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+      <a 
+        href="/#modelos" 
+        class="inline-flex items-center gap-2 text-sm text-stone-600 hover:text-amber-600 transition-colors group"
+      >
+        <span class="transform group-hover:-translate-x-1 transition-transform"><Fragment set:html={Icons.arrowLeft} /></span>
+        Volver a modelos
+      </a>
+    </div>
+  </div>
 
-    <!-- Header -->
-    <div class="flex justify-between items-start mb-8">
-      <h1 class="text-3xl font-semibold text-[#222222]">
-        {name}
-      </h1>
-
-      <div class="text-right">
-        <p class="text-2xl font-bold text-[#222222]">
-          Kit Inicial SIP {price}
+  <!-- Header con precio destacado -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8 pb-6">
+    <div class="flex flex-col lg:flex-row lg:items-end lg:justify-between gap-4">
+      <div>
+        <h1 class="text-3xl md:text-4xl lg:text-5xl font-bold text-stone-900 tracking-tight">
+          {name}
+        </h1>
+        <p class="mt-2 text-stone-500 text-lg">
+          Vivienda prefabricada con tecnología SIP
         </p>
       </div>
+      
+      <div class="flex items-baseline gap-2 bg-amber-50 px-6 py-3 rounded-2xl border border-amber-200">
+        <span class="text-sm text-stone-600 font-medium">Kit desde</span>
+        <span class="text-3xl font-bold text-amber-700">{price}</span>
+      </div>
     </div>
+  </section>
 
-    <!-- Grid principal -->
-    <div class="grid lg:grid-cols-3 gap-6 mb-16">
-
-      <!-- Imagen grande izquierda -->
-      <div class="lg:col-span-2">
+  <!-- Galería tipo Airbnb -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 h-[400px] md:h-[500px]">
+      <!-- Imagen principal -->
+      <div class="relative group overflow-hidden rounded-2xl md:rounded-r-none cursor-pointer" onclick="openGallery(0)">
         <img
-          src={gallery?.[0] || heroImage}
-          alt={name}
-          class="w-full h-full object-cover rounded-xl shadow-lg"
+          src={mainImage}
+          alt={`${name} - Vista principal`}
+          class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         />
+        <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        <div class="absolute bottom-4 left-4 text-white text-sm font-medium opacity-0 group-hover:opacity-100 transition-opacity">
+          Vista principal
+        </div>
       </div>
 
       <!-- Columna derecha -->
-      <div class="flex flex-col gap-6">
-
-        {gallery?.[1] && (
-          <img
-            src={gallery[1]}
-            alt="Plano"
-            class="rounded-xl shadow-md"
-          />
+      <div class="hidden md:grid grid-rows-2 gap-4">
+        {sideImages.map((img, idx) => (
+          <div class="relative group overflow-hidden rounded-2xl cursor-pointer" onclick={`openGallery(${idx + 1})`}>
+            <img
+              src={img}
+              alt={`${name} - Vista ${idx + 2}`}
+              class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity"></div>
+          </div>
+        ))}
+        
+        <!-- Botón ver más fotos -->
+        {allImages.length > 3 && (
+          <button 
+            onclick="openGallery(0)"
+            class="absolute bottom-4 right-4 bg-white/95 backdrop-blur text-stone-900 px-4 py-2 rounded-lg font-medium text-sm shadow-lg hover:bg-white transition-colors flex items-center gap-2"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+            Ver todas las fotos
+          </button>
         )}
+      </div>
+    </div>
+  </section>
 
-        {gallery?.[2] && (
-          <img
-            src={gallery[2]}
-            alt="Vista secundaria"
-            class="rounded-xl shadow-md"
-          />
+  <!-- Características principales -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-12">
+    <div class="bg-white rounded-2xl shadow-sm border border-stone-100 p-6 md:p-8">
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-6 md:gap-8">
+        <div class="flex items-center gap-4 p-4 rounded-xl bg-stone-50 hover:bg-amber-50 transition-colors group">
+          <div class="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform">
+            <Fragment set:html={Icons.ruler} />
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-stone-900">{meters}</p>
+            <p class="text-sm text-stone-500">Metros cuadrados</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 p-4 rounded-xl bg-stone-50 hover:bg-amber-50 transition-colors group">
+          <div class="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform">
+            <Fragment set:html={Icons.bed} />
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-stone-900">{bedrooms}</p>
+            <p class="text-sm text-stone-500">Dormitorios</p>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-4 p-4 rounded-xl bg-stone-50 hover:bg-amber-50 transition-colors group">
+          <div class="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform">
+            <Fragment set:html={Icons.bath} />
+          </div>
+          <div>
+            <p class="text-2xl font-bold text-stone-900">{bathrooms}</p>
+            <p class="text-sm text-stone-500">Baños</p>
+          </div>
+        </div>
+
+        {terrace && (
+          <div class="flex items-center gap-4 p-4 rounded-xl bg-stone-50 hover:bg-amber-50 transition-colors group">
+            <div class="w-12 h-12 rounded-xl bg-white shadow-sm flex items-center justify-center text-amber-600 group-hover:scale-110 transition-transform">
+              <Fragment set:html={Icons.terrace} />
+            </div>
+            <div>
+              <p class="text-2xl font-bold text-stone-900">{terrace}</p>
+              <p class="text-sm text-stone-500">m² Terraza</p>
+            </div>
+          </div>
+        )}
+      </div>
+    </div>
+  </section>
+
+  <!-- Contenido principal: Descripción + CTA Sticky -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-20">
+    <div class="grid lg:grid-cols-3 gap-12">
+      
+      <!-- Columna izquierda: Descripción -->
+      <div class="lg:col-span-2 space-y-10">
+        
+        <!-- Descripción -->
+        <div>
+          <h2 class="text-2xl font-bold text-stone-900 mb-6 flex items-center gap-3">
+            <span class="w-8 h-1 bg-amber-500 rounded-full"></span>
+            Sobre este modelo
+          </h2>
+          <div class="prose prose-stone prose-lg max-w-none">
+            <p class="text-stone-600 leading-relaxed text-lg">
+              Te presentamos el <strong class="text-stone-900">{name}</strong>, diseñado con tecnología SIP para máxima eficiencia energética y confort.
+            </p>
+            <div class="mt-6 text-stone-600 leading-relaxed whitespace-pre-line">
+              {description}
+            </div>
+          </div>
+        </div>
+
+        <!-- Especificaciones -->
+        <div>
+          <h2 class="text-2xl font-bold text-stone-900 mb-6 flex items-center gap-3">
+            <span class="w-8 h-1 bg-amber-500 rounded-full"></span>
+            El Kit incluye
+          </h2>
+          <div class="bg-stone-50 rounded-2xl p-6 md:p-8 border border-stone-100">
+            <ul class="grid md:grid-cols-2 gap-4">
+              {specifications.map((item) => (
+                <li class="flex items-start gap-3 text-stone-700">
+                  <span class="flex-shrink-0 w-5 h-5 rounded-full bg-amber-100 text-amber-600 flex items-center justify-center mt-0.5">
+                    <Fragment set:html={Icons.check} />
+                  </span>
+                  <span class="text-sm leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <!-- Plano si existe -->
+        {floorPlan && (
+          <div>
+            <h2 class="text-2xl font-bold text-stone-900 mb-6 flex items-center gap-3">
+              <span class="w-8 h-1 bg-amber-500 rounded-full"></span>
+              Planta arquitectónica
+            </h2>
+            <div class="relative group overflow-hidden rounded-2xl border border-stone-200 bg-white p-4">
+              <img
+                src={floorPlan}
+                alt={`Plano ${name}`}
+                class="w-full h-auto object-contain"
+              />
+              <div class="absolute inset-0 bg-stone-900/0 group-hover:bg-stone-900/5 transition-colors pointer-events-none"></div>
+            </div>
+          </div>
         )}
 
       </div>
+
+      <!-- Columna derecha: CTA Sticky -->
+      <div class="lg:col-span-1">
+        <div class="sticky top-28 space-y-6">
+          
+          <!-- Card de cotización -->
+          <div class="bg-white rounded-2xl shadow-xl border border-stone-100 p-6 space-y-6">
+            <div>
+              <p class="text-sm text-stone-500 mb-1">Precio Kit SIP</p>
+              <p class="text-4xl font-bold text-stone-900">{price}</p>
+              <p class="text-xs text-stone-400 mt-1">*No incluye instalación ni transporte</p>
+            </div>
+
+            <div class="space-y-3">
+              <a
+                href="/#contacto"
+                class="flex items-center justify-center gap-2 w-full bg-amber-500 text-stone-950 py-4 rounded-xl font-bold text-lg hover:bg-amber-400 transition-all duration-300 shadow-lg shadow-amber-500/25 hover:shadow-amber-500/40 hover:-translate-y-0.5"
+              >
+                Solicitar cotización
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+              </a>
+              
+              <a
+                href="https://wa.me/56912345678?text=Hola,%20me%20interesa%20el%20modelo%20{name}"
+                target="_blank"
+                rel="noopener noreferrer"
+                class="flex items-center justify-center gap-2 w-full bg-green-600 text-white py-4 rounded-xl font-semibold hover:bg-green-500 transition-all duration-300"
+              >
+                <Fragment set:html={Icons.whatsapp} />
+                Consultar por WhatsApp
+              </a>
+            </div>
+
+            <div class="pt-4 border-t border-stone-100 space-y-3 text-sm text-stone-600">
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-green-600"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.51 3.81 17 5 19 5a1 1 0 0 1 1 1z"/><path d="m9 12 2 2 4-4"/></svg>
+                <span>Garantía estructural 5 años</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-amber-600"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                <span>Entrega en 4-6 semanas</span>
+              </div>
+              <div class="flex items-center gap-2">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-blue-600"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" x2="8" y1="13" y2="13"/><line x1="16" x2="8" y1="17" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+                <span>Planos técnicos incluidos</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modelos relacionados (opcional) -->
+          <div class="bg-stone-100 rounded-2xl p-6">
+            <h3 class="font-bold text-stone-900 mb-4">¿Necesitas otro tamaño?</h3>
+            <a href="/#modelos" class="text-amber-600 font-medium hover:text-amber-700 flex items-center gap-1 group">
+              Ver todos los modelos
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform group-hover:translate-x-1"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+          </div>
+
+        </div>
+      </div>
+
     </div>
-    <!-- Barra de características -->
-    <div class="bg-[#ECECEC] rounded-2xl border border-gray-300 shadow-sm py-4 mb-10">
-
-      <div class="grid grid-cols-3 text-center divide-x divide-gray-300">
-
-        <!-- Dormitorios -->
-        <div class="flex flex-col items-center justify-center">
-          <img src="/icons/cama.png" class="h-6 mb-3 opacity-80" />
-          <span class="text-xl font-semibold">{bedrooms}</span>
-          <span class="text-sm text-gray-600">Dormitorios</span>
-        </div>
-
-        <!-- Baños -->
-        <div class="flex flex-col items-center justify-center">
-          <img src="/icons/baño.png" class="h-6 mb-3 opacity-80" />
-          <span class="text-xl font-semibold">{bathrooms}</span>
-          <span class="text-sm text-gray-600">Baños</span>
-        </div>
-
-        <!-- Metros -->
-        <div class="flex flex-col items-center justify-center">
-          <img src="/icons/regla.png" class="h-6 mb-3 opacity-80" />
-          <span class="text-xl font-semibold">{meters}</span>
-          <span class="text-sm text-gray-600">M2</span>
-        </div>
-
-    </div>
-
-  </div>
-
   </section>
 
-  <!-- Descripción -->
-  <section class="bg-[#EFEFEF] py-16">
-
-    <div class="max-w-4xl mx-auto px-6">
-
-      <h2 class="text-sm uppercase tracking-wider text-gray-500 mb-4">
-        Descripción
-      </h2>
-
-      <hr class="mb-8">
-
-      <h3 class="text-3xl font-semibold mb-4">
-        {name}
-      </h3>
-
-      <p class="text-gray-700 leading-relaxed mb-6 whitespace-pre-line font-bold">
-        Te presentamos nuestro nuevo diseño, el modelo {name}. 
-      </p>
-       <p class="text-gray-700 leading-relaxed mb-6  font-bold">
-        {description}
-      </p>
-      <div class="max-w-4xl mx-auto px-6">
-
-    <h3 class="text-lg font-semibold mb-6">
-      Incluye:
-    </h3>
-
-    <ul class="list-disc list-inside space-y-3 text-gray-700 leading-relaxed">
-
-      {specifications.map((item) => (
-        <li>{item}</li>
-      ))}
-
-    </ul>
-
+  <!-- Lightbox simple para galería -->
+  <div id="lightbox" class="fixed inset-0 z-50 bg-black/95 hidden items-center justify-center p-4">
+    <button onclick="closeGallery()" class="absolute top-4 right-4 text-white p-2 hover:bg-white/10 rounded-full transition-colors">
+      <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+    </button>
+    <img id="lightbox-img" src="" alt="" class="max-w-full max-h-[90vh] object-contain rounded-lg" />
   </div>
-
-      {gallery?.[1] && (
-        <div class="flex justify-center my-10">
-          <img
-            src={gallery[3]}
-            class="w-full max-w-3xl rounded-lg shadow"
-          />
-        </div>
-      )}
-
-    </div>
-
-  </section>
-
-
-
 
 </BaseLayout>
+
+<script define:vars={{ allImages }}>
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+
+  window.openGallery = (index) => {
+    lightboxImg.src = allImages[index];
+    lightbox.classList.remove('hidden');
+    lightbox.classList.add('flex');
+    document.body.style.overflow = 'hidden';
+  };
+
+  window.closeGallery = () => {
+    lightbox.classList.add('hidden');
+    lightbox.classList.remove('flex');
+    document.body.style.overflow = '';
+  };
+
+  // Cerrar con ESC
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeGallery();
+  });
+
+  // Cerrar click fuera
+  lightbox?.addEventListener('click', (e) => {
+    if (e.target === lightbox) closeGallery();
+  });
+</script>
